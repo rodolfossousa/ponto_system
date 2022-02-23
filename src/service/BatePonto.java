@@ -1,72 +1,94 @@
 package service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import entities.Ponto;
 import entities.tipos.Entrada;
 import entities.tipos.IdaAlmoco;
 import entities.tipos.Saida;
 import entities.tipos.VoltaAlmoco;
+import repository.Arquivo;
 
 public class BatePonto {
 
-	private Ponto ponto;
-	private Date dataHoje = new Date();
-	
-	public BatePonto() {
-		
-	}
-	
-	public BatePonto(Ponto ponto) {
-		this.ponto = ponto;
-	}
+	private Entrada entrada;
+	private IdaAlmoco ida;
+	private VoltaAlmoco volta;
+	private Saida saida;
+	private Arquivo arquivo;
+	private String data;
+	private String hora;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
-	String caminho = "c:\\Temp\\ponto.txt";
+	public BatePonto() {
+
+	}
 
 	public void batePonto() {
+		data = sdf.format(new Date());
+		hora = sdf2.format(new Date());
 
-		try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
+		arquivo = new Arquivo();
+		arquivo.ler(data);
 
-				String line = br.readLine();
-				String data = sdf.format(dataHoje);
-				String horario = sdf2.format(dataHoje);
-				
-				if (line == null) {					
-					Entrada entrada = new Entrada(data, horario);
-					entrada.baterPonto();
-					bw.write(data + ";" + entrada.getHora());									
-				} 
-				
-				String[] vetor = line.split(";");
-				
-				switch (vetor.length) {				
-				case 2:
-					IdaAlmoco idaAlmoco = new IdaAlmoco(data, horario);
-					bw.write(";" + idaAlmoco.getHora());
-					break;
-				case 3:
-					VoltaAlmoco voltaAlmoco = new VoltaAlmoco(data, horario);
-					bw.write(";" + voltaAlmoco.getHora());
-					break;
-				case 4:
-					Saida saida = new Saida(data, horario);
-					bw.write(";" + saida.getHora());
-					break;					
-				}
-			
+		if (arquivo.getLine() == null) {
+			entrada = new Entrada(data, hora);
+			arquivo.escrever(entrada.getDia(), entrada.getHora());
+		} else {
+
+			switch (arquivo.getVetor().length) {
+
+			case 2:
+				ida = new IdaAlmoco(data, hora);
+				arquivo.escrever(ida.getDia(), ida.getHora());
+				break;
+			case 3:
+				volta = new VoltaAlmoco(data, hora);
+				arquivo.escrever(volta.getDia(), volta.getHora());
+				break;
+			case 4:
+				saida = new Saida(data, hora);
+				arquivo.escrever(saida.getDia(), saida.getHora());
+				break;
+			case 5:
+				break;
 			}
-		} catch (IOException e) {
-			System.out.println("Erro: " + e.getMessage());
 		}
+	}
+
+	@Override
+	public String toString() {
+		data = sdf.format(new Date());
+		String retorno = "texto";
+
+		arquivo = new Arquivo();
+		
+		arquivo.ler(data);
+		String st = "do dia " + arquivo.getVetor()[0] + " computada às ";
+
+		if (arquivo.getLine() == null) {
+			retorno = "Dia ainda não preenchido";
+		} else {
+
+			switch (arquivo.getVetor().length) {
+
+			case 2:
+				retorno =  "Entrada " + st + arquivo.getVetor()[1];
+				break;
+			case 3:
+				retorno =  "Ida ao almoço " + st + arquivo.getVetor()[2];
+				break;
+			case 4:
+				retorno =  "Volta do almoço " + st + arquivo.getVetor()[3];
+				break;
+			case 5:
+				retorno = "Saida " + st + arquivo.getVetor()[4] + "\n" + "Dia completo! Retorne amanhã!";
+				break;
+			}
+		}
+		
+		return retorno;
 	}
 }
