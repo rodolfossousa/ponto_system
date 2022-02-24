@@ -7,4 +7,5 @@ public class NomeInvalido extends RuntimeException{
 	public NomeInvalido(String msg) {
 		super(msg);
 	}
+
 }
