@@ -69,7 +69,7 @@ public class BatePonto {
 		String st = "do dia " + arquivo.getVetor()[0] + " computada às ";
 
 		if (arquivo.getLine() == null) {
-			retorno = "Dia ainda não preenchido";
+			retorno = "Dia  " + data + " ainda  não preenchido";
 		} else {
 
 			switch (arquivo.getVetor().length) {

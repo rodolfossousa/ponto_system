@@ -1,7 +1,9 @@
 package entities;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import exeptions.NomeInvalido;
@@ -14,6 +16,7 @@ public class Usuario {
 	private String[] vetor;
 	private String line;
 	private String valida;
+	private Admin admin = new Admin();
 
 	public Usuario() {
 
@@ -52,6 +55,21 @@ public class Usuario {
 			System.out.println("Erro: " + e.getMessage());
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void cadastraUsuario(String nome, String senha) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO, true))) {		
+			
+			if (senha.length() < 6) {
+				throw new NomeInvalido("A senha deve conter 6 caracteres ou mais!");
+			}
+				bw.newLine();
+				bw.write(nome + ";" + senha);
+
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+
 		}
 	}
 
