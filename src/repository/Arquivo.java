@@ -25,6 +25,10 @@ public class Arquivo {
 	}
 
 	public String[] getVetor() {
+		if (vetor == null) {
+			vetor = new String[1];
+		}
+		
 		return vetor;
 	}
 

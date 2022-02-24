@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\application"
+    "\\src\\application",
+    "\\src\\entities"
   ],
-  "SelectedNode": "\\src\\application\\Program.java",
+  "SelectedNode": "\\src\\entities",
   "PreviewInSolutionExplorer": false
 }

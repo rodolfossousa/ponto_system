@@ -5,20 +5,14 @@ import java.util.Scanner;
 import entities.Admin;
 import entities.Usuario;
 import exeptions.NomeInvalido;
+import repository.Arquivo;
+import service.BatePonto;
 
 public class Program {
 
 	public static void main(String[] args) throws NomeInvalido {
 
 		Scanner sc = new Scanner(System.in);
-
-		/*
-		 * BatePonto bate = new BatePonto();
-		 * 
-		 * bate.batePonto();
-		 * 
-		 * System.out.println(bate);
-		 */
 
 		System.out.println("GH CONSULT");
 		System.out.println("Escolha uma das alternativas abaixo:");
@@ -30,6 +24,7 @@ public class Program {
 
 		if (escolha == '1') {
 			tentar(() -> {
+				System.out.println();
 				System.out.print("login:");
 				sc.next();
 				String login = sc.nextLine();
@@ -42,9 +37,10 @@ public class Program {
 
 			System.out.println("Login realizado!");
 		}
-		
+
 		if (escolha == '2') {
 			tentar(() -> {
+				System.out.println();
 				System.out.println("Entre com o login do Administrador: ");
 				System.out.print("administrador:");
 				String login = sc.nextLine();
@@ -53,10 +49,11 @@ public class Program {
 				Admin admin = new Admin();
 				admin.validaAdmin(login, senha);
 			});
-			
+
 			System.out.println("Admin logado.");
-			
+
 			tentar(() -> {
+				System.out.println();
 				System.out.println("Entre com os dados do usuário: ");
 				System.out.print("usuario: ");
 				String login = sc.nextLine();
@@ -65,11 +62,32 @@ public class Program {
 				Usuario usuario = new Usuario();
 				usuario.cadastraUsuario(login, senha);
 			});
-			
+
 			System.out.println("Usuario cadastrado!");
-			
+
 		}
 
+		BatePonto bate = new BatePonto();
+
+		System.out.println();
+		System.out.println(bate);
+		System.out.println();
+		Arquivo arquivo = new Arquivo();
+		
+		while (arquivo.getVetor().length != 5) {
+			System.out.println("Deseja bater o ponto? ");
+			System.out.println("1 - Sim");
+			System.out.println("2 - Não");
+			System.out.print("Insira -> ");
+			escolha = sc.nextLine().charAt(0);
+			if (escolha == '1') {
+				bate.batePonto();
+			} else {
+				break;
+			}
+
+			System.out.println(bate);
+		}
 		sc.close();
 	}
 
