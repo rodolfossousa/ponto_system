@@ -1,5 +1,7 @@
 package application;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import entities.Admin;
@@ -15,7 +17,11 @@ public class Main {
 
 		Scanner sc = new Scanner(System.in);
 		Escolha escolha = new Escolha('0');
-
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		String data = sdf.format(date);
+		
+		
 		System.out.println("GH CONSULT");
 		System.out.println("Escolha uma das alternativas abaixo:");
 		System.out.println();
@@ -35,7 +41,7 @@ public class Main {
 				
 				System.out.println();
 				System.out.print("login:");
-				sc.next();
+				//sc.next();
 				String login = sc.nextLine();
 				System.out.print("senha:");
 				String senha = sc.nextLine();
@@ -54,7 +60,7 @@ public class Main {
 				System.out.print("administrador:");
 				String login = sc.nextLine();
 				System.out.print("senha administrador:");
-				String senha = sc.nextLine();
+				String senha = sc.nextLine();				
 				Admin admin = new Admin();
 				admin.validaAdmin(login, senha);
 			});
@@ -99,8 +105,11 @@ public class Main {
 		if (escolha2.getEscolha() == '1') {
 
 			Escolha escolha3 = new Escolha('0');
+			arquivo.ler(data);
 			while (arquivo.getVetor().length != 5 || escolha3.getEscolha() != '2') {
 
+				System.out.println(arquivo.getVetor().length);
+				System.out.println(escolha3.getEscolha());
 				bate.batePonto();
 				System.out.println(bate);
 				System.out.println();

@@ -11,11 +11,14 @@ import exeptions.NomeInvalido;
 public class Usuario {
 
 	private String nome;
+	@SuppressWarnings("unused")
 	private String senha;
 	private final static String CAMINHO = "c:\\Temp\\usuario.txt";
 	private String[] vetor;
 	private String line;
+	@SuppressWarnings("unused")
 	private String valida;
+	@SuppressWarnings("unused")
 	private Admin admin = new Admin();
 
 	public Usuario() {
@@ -40,7 +43,7 @@ public class Usuario {
 			line = br.readLine();
 			vetor = line.split(";");
 
-			while (vetor[0].equals(usuario)) {
+			while (vetor[0].equals(usuario) ==  false && line != null) {
 				line = br.readLine();
 				vetor = line.split(";");			
 			}
