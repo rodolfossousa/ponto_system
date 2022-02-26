@@ -35,12 +35,15 @@ public class Arquivo {
 	public String ler(String dia) {
 		try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO))) {
 
-			line = br.readLine();
-			vetor = line.split(";");
+			String[] vetorR;
 
-			while (vetor[0].equals(dia) == false) {
+			line = br.readLine();
+			while (line != null) {
+				vetorR = line.split(";");
 				line = br.readLine();
-				vetor = line.split(";");
+				if(vetorR[0].equals(dia)) {
+					vetor = vetorR;
+				}
 			}
 
 		} catch (IOException e) {

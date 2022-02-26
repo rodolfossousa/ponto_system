@@ -20,8 +20,7 @@ public class Main {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		String data = sdf.format(date);
-		
-		
+
 		System.out.println("GH CONSULT");
 		System.out.println("Escolha uma das alternativas abaixo:");
 		System.out.println();
@@ -38,10 +37,10 @@ public class Main {
 		UI.clearScreen();
 		if (escolha.getEscolha() == '1') {
 			tentar(() -> {
-				
+
 				System.out.println();
 				System.out.print("login:");
-				//sc.next();
+				// sc.next();
 				String login = sc.nextLine();
 				System.out.print("senha:");
 				String senha = sc.nextLine();
@@ -60,7 +59,7 @@ public class Main {
 				System.out.print("administrador:");
 				String login = sc.nextLine();
 				System.out.print("senha administrador:");
-				String senha = sc.nextLine();				
+				String senha = sc.nextLine();
 				Admin admin = new Admin();
 				admin.validaAdmin(login, senha);
 			});
@@ -82,11 +81,6 @@ public class Main {
 
 		}
 
-		BatePonto bate = new BatePonto();
-
-		System.out.println();
-		System.out.println(bate);
-		System.out.println();
 		Arquivo arquivo = new Arquivo();
 		Escolha escolha2 = new Escolha('0');
 
@@ -104,29 +98,41 @@ public class Main {
 
 		if (escolha2.getEscolha() == '1') {
 
+			BatePonto bate = new BatePonto();
+
 			Escolha escolha3 = new Escolha('0');
 			arquivo.ler(data);
-			while (arquivo.getVetor().length != 5 || escolha3.getEscolha() != '2') {
-
-				System.out.println(arquivo.getVetor().length);
-				System.out.println(escolha3.getEscolha());
+			
+			for (int i =0; i <= arquivo.getVetor().length; i++) {
+				
 				bate.batePonto();
+				System.out.println();
 				System.out.println(bate);
 				System.out.println();
-				if (arquivo.getVetor().length != 5) {
-					System.out.println("Bater o próximo horário:");
+				
+				if(arquivo.getVetor().length < 5) {
+					System.out.println("Deseja bater o próximo ponto?");
 					System.out.println("1 - Sim");
 					System.out.println("2 - Não");
 					
-					tentar(() -> {
+					tentarNovamente(() -> {
 						System.out.print("Insira -> ");
 						char esc = sc.nextLine().charAt(0);
 						escolha3.setEscolha(esc);
-						escolha3.escolhaErrada2(esc);
+						escolha3.escolhaErrada(esc);
 					});
-
+					
+					if(escolha3.getEscolha() == '2') {
+						break;
+					}
 				}
+				
 			}
+			
+		}
+		
+		if (escolha2.getEscolha() == '2') {
+			
 		}
 		sc.close();
 	}
