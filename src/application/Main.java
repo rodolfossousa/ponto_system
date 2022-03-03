@@ -49,7 +49,9 @@ public class Main {
 				usuario.validaSenha(login, senha);
 			});
 
+			System.out.println();
 			System.out.println("Login realizado!");
+			System.out.println();
 		}
 
 		if (escolha.getEscolha() == '2') {
@@ -103,12 +105,13 @@ public class Main {
 			Escolha escolha3 = new Escolha('0');
 			arquivo.ler(data);
 			
-			for (int i =0; i <= arquivo.getVetor().length; i++) {
+			for (int i = 1; i < arquivo.getVetor().length; i++) {
 				
 				bate.batePonto();
 				System.out.println();
 				System.out.println(bate);
 				System.out.println();
+				arquivo.ler(data);
 				
 				if(arquivo.getVetor().length < 5) {
 					System.out.println("Deseja bater o próximo ponto?");
@@ -132,8 +135,17 @@ public class Main {
 		}
 		
 		if (escolha2.getEscolha() == '2') {
+			arquivo.lerTudo();
+
+			System.out.println();
 			
+			for (Object a: arquivo.getLista()) {
+				System.out.println(a);
+			}
+			System.out.println();
 		}
+		
+		System.out.println("Até Mais!");
 		sc.close();
 	}
 

@@ -5,12 +5,15 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arquivo {
 
 	private String line;
 	private String[] vetor;
 	private static final String CAMINHO = "c:\\Temp\\ponto.txt";
+	private List<Object> lista = new ArrayList<>();
 
 	public Arquivo() {
 
@@ -28,21 +31,27 @@ public class Arquivo {
 		if (vetor == null) {
 			vetor = new String[1];
 		}
-		
+
 		return vetor;
+	}
+
+	public List<Object> getLista() {
+		return lista;
 	}
 
 	public String ler(String dia) {
 		try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO))) {
 
-			String[] vetorR;
-
 			line = br.readLine();
-			while (line != null) {
-				vetorR = line.split(";");
-				line = br.readLine();
-				if(vetorR[0].equals(dia)) {
-					vetor = vetorR;
+
+			if (line != null) {
+				vetor = line.split(";");
+				while (!vetor[0].equals(dia)) {
+					line = br.readLine();
+					if (line == null) {
+						break;
+					}
+					vetor = line.split(";");
 				}
 			}
 
@@ -69,6 +78,23 @@ public class Arquivo {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 
+		}
+	}
+
+	public void lerTudo() {
+		try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO))) {
+
+			line = br.readLine();
+
+			while (line != null) {
+				lista.add(line);
+				line = br.readLine();
+			}
+
+		} catch (IOException e) {
+			System.out.println("Erro: " + e.getMessage());
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
