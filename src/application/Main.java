@@ -104,8 +104,14 @@ public class Main {
 
 			Escolha escolha3 = new Escolha('0');
 			arquivo.ler(data);
+			
+			if (arquivo.getVetor().length == 5) {
+				System.out.println();
+				System.out.println(bate);
+				System.out.println();
+			}
 
-			for (int i = 1; i < arquivo.getVetor().length; i++) {
+			while (arquivo.getVetor().length != 5) {
 
 				bate.batePonto();
 				System.out.println();
@@ -139,27 +145,14 @@ public class Main {
 
 			System.out.println();
 
+			System.out.println("DATA       ENT    IDA  VOLTA SAÍDA");
 			for (Object a : arquivo.getLista()) {
-				String line = (String) a;
-				String[] vetor = line.split(";");
 
-				switch (vetor.length) {
-				case 2:
-					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1]);
-					break;
-				case 3:
-					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + vetor[2]);
-					break;
-				case 4:
-					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + "(" +vetor[2] + " / " + vetor[3] + ")");
-					break;
-				case 5:
-					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + "(" +vetor[2] + " / " + vetor[3] + ")" + " Saída " + vetor[4]);
-					break;
-				}
-
+				System.out.println(a);
 			}
+
 			System.out.println();
+
 		}
 
 		System.out.println("Até Mais!");
