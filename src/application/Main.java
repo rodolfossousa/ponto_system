@@ -104,47 +104,64 @@ public class Main {
 
 			Escolha escolha3 = new Escolha('0');
 			arquivo.ler(data);
-			
+
 			for (int i = 1; i < arquivo.getVetor().length; i++) {
-				
+
 				bate.batePonto();
 				System.out.println();
 				System.out.println(bate);
 				System.out.println();
 				arquivo.ler(data);
-				
-				if(arquivo.getVetor().length < 5) {
+
+				if (arquivo.getVetor().length < 5) {
 					System.out.println("Deseja bater o próximo ponto?");
 					System.out.println("1 - Sim");
 					System.out.println("2 - Não");
-					
+
 					tentarNovamente(() -> {
 						System.out.print("Insira -> ");
 						char esc = sc.nextLine().charAt(0);
 						escolha3.setEscolha(esc);
 						escolha3.escolhaErrada(esc);
 					});
-					
-					if(escolha3.getEscolha() == '2') {
+
+					if (escolha3.getEscolha() == '2') {
 						break;
 					}
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		if (escolha2.getEscolha() == '2') {
 			arquivo.lerTudo();
 
 			System.out.println();
-			
-			for (Object a: arquivo.getLista()) {
-				System.out.println(a);
+
+			for (Object a : arquivo.getLista()) {
+				String line = (String) a;
+				String[] vetor = line.split(";");
+
+				switch (vetor.length) {
+				case 2:
+					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1]);
+					break;
+				case 3:
+					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + vetor[2]);
+					break;
+				case 4:
+					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + "(" +vetor[2] + " / " + vetor[3] + ")");
+					break;
+				case 5:
+					System.out.println("Data: " + vetor[0] + " Entrada " + vetor[1] + " Almoço " + "(" +vetor[2] + " / " + vetor[3] + ")" + " Saída " + vetor[4]);
+					break;
+				}
+
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println("Até Mais!");
 		sc.close();
 	}
