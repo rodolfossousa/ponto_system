@@ -148,7 +148,7 @@ public class Main {
 			System.out.println("DATA       ENT    IDA  VOLTA SAÍDA");
 			for (Object a : arquivo.getLista()) {
 
-				System.out.println(a);
+				System.out.println(a.hashCode());
 			}
 
 			System.out.println();
